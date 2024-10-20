@@ -1,0 +1,58 @@
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+public class ZakatMaalCalculator {
+    public static void main(String[] args) {
+        // Membuat objek Scanner untuk input dari pengguna
+        Scanner scanner = new Scanner(System.in);
+
+        // Membuat objek DecimalFormat untuk format Rupiah
+        DecimalFormat rupiahFormat = new DecimalFormat("Rp ###,###.00");
+
+        boolean ulangi = true;  // Variabel untuk mengontrol perulangan
+
+        // Header
+        System.out.println("=========================================");
+        System.out.println("       Program Penghitung Zakat Maal      ");
+        System.out.println("=========================================\n");
+
+        // Perulangan untuk menghitung zakat beberapa kali
+        while (ulangi) {
+            // Meminta input jumlah harta dari pengguna
+            System.out.print("Masukkan jumlah harta (uang) Anda: ");
+            double jumlahHarta = scanner.nextDouble();
+
+            // Memastikan jumlah harta valid (tidak negatif)
+            if (jumlahHarta < 0) {
+                System.out.println("Jumlah harta tidak boleh negatif. Silakan coba lagi.\n");
+                continue; // Kembali ke awal perulangan jika input tidak valid
+            }
+
+            // Menghitung zakat maal (2.5% dari total harta)
+            double zakat = jumlahHarta * 2.5 / 100;
+
+            // Menampilkan hasil perhitungan
+            System.out.println("\n-----------------------------------------");
+            System.out.println(" Jumlah Harta Anda  : " + rupiahFormat.format(jumlahHarta));
+            System.out.println(" Zakat (2.5%)       : " + rupiahFormat.format(zakat));
+            System.out.println("-----------------------------------------");
+            System.out.println(" Anda wajib membayar zakat sebesar: " + rupiahFormat.format(zakat));
+            System.out.println("-----------------------------------------\n");
+
+            // Menanyakan apakah ingin menghitung ulang
+            System.out.print("Apakah Anda ingin menghitung lagi? (y/n): ");
+            String jawaban = scanner.next().toLowerCase();  // Mengambil input dan mengubahnya ke huruf kecil
+
+            // Mengatur apakah akan mengulangi perhitungan atau berhenti
+            if (!jawaban.equals("y")) {
+                ulangi = false;
+                System.out.println("\nTerima kasih telah menggunakan program ini.");
+                System.out.println("Semoga harta Anda berkah dan bermanfaat.");
+                System.out.println("=========================================");
+            }
+        }
+
+        // Menutup scanner untuk mencegah kebocoran memori
+        scanner.close();
+    }
+}
